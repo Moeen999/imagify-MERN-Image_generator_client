@@ -8,14 +8,14 @@ import NotFoundPage from "./components/NotFoundPage";
 const App = () => {
   return (
     <div className="px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen bg-linear-to-b from-teal-50 to-orange-50">
-      <Navbar/>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/results" element={<Result />} />
         <Route path="/buy" element={<BuyCredit />} />
-        <Route path="*" element={<NotFoundPage/>}/>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
