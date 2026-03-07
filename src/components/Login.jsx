@@ -1,14 +1,58 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import axios from "axios";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
+import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [isSignup, setIsSignup] = useState(false);
+  const { backendUrl, setToken, setUser } = useContext(AppContext);
   const navigate = useNavigate();
+  const [inputVal, setInputVal] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInputVal((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (isSignup) {
+        const { data } = await axios.post(
+          backendUrl + "/api/user/register",
+          inputVal,
+        );
+        if (data.success) {
+          navigate("/");
+          setUser(true);
+          setToken(data.token);
+          toast.success("Account created succesfully!");
+        }
+      } else {
+        const { data } = await axios.post(
+          backendUrl + "/api/user/login",
+          inputVal,
+        );
+        if (data.success) {
+          navigate("/");
+          setUser(true);
+          setToken(data.token);
+          toast.success("User logged In succesfully");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="absolute top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center">
       <motion.form
+        onSubmit={handleFormSubmit}
         initial={{ opacity: 0.2, y: 100 }}
         transition={{ duration: 1 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -33,6 +77,9 @@ const Login = () => {
               placeholder="Full Name"
               required
               className="outline-none text-sm"
+              name="name"
+              value={inputVal.name}
+              onChange={handleInputChange}
             />
           </div>
         )}
@@ -44,6 +91,9 @@ const Login = () => {
             placeholder="Email"
             required
             className="outline-none text-sm"
+            name="email"
+            value={inputVal.email}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -54,6 +104,9 @@ const Login = () => {
             placeholder="Password"
             required
             className="outline-none text-sm"
+            name="password"
+            value={inputVal.password}
+            onChange={handleInputChange}
           />
         </div>
 
