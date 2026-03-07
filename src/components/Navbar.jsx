@@ -39,7 +39,7 @@ const Navbar = () => {
             <p onClick={() => navigate("/buy")} className="cursor-pointer">
               Pricing
             </p>
-            <button className="cursor-pointer bg-zinc-800 text-white px-7 py-2 sm:px-2 text-sm rounded-full">
+            <button onClick={()=>navigate("/login")} className="cursor-pointer bg-zinc-800 text-white px-7 py-2 sm:px-2 text-sm rounded-full">
               Login
             </button>
           </div>
