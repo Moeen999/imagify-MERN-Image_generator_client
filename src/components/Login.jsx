@@ -28,10 +28,10 @@ const Login = () => {
           inputVal,
         );
         if (data.success) {
+          toast.success("Account created succesfully!");
           navigate("/");
           setUser(true);
           setToken(localStorage.setItem("token", data.token));
-          toast.success("Account created succesfully!");
         }
       } else {
         const { data } = await axios.post(
@@ -39,10 +39,10 @@ const Login = () => {
           inputVal,
         );
         if (data.success) {
+          toast.success("User logged In succesfully");
           navigate("/");
           setUser(true);
           setToken(localStorage.setItem("token", data.token));
-          toast.success("User logged In succesfully");
         }
       }
     } catch (error) {
