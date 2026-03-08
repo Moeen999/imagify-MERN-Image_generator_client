@@ -4,7 +4,7 @@ import { AppContext } from "../context/AppContext";
 import { motion } from "motion/react";
 
 const BuyCredit = () => {
-  const { user } = useContext(AppContext);
+  const { user, buyCredits } = useContext(AppContext);
   return (
     <motion.div
       initial={{ opacity: 0.2, y: 100 }}
@@ -37,7 +37,10 @@ const BuyCredit = () => {
               <span className="text-3xl font-medium">${plan.price}</span> /{" "}
               {plan.credits} credits
             </p>
-            <button className="w-full bg-gray-800 text-white mt-8 text-sm rounded-md py-2.5 min-w-52">
+            <button
+              onClick={() => buyCredits(plan.id)}
+              className="w-full bg-gray-800 text-white mt-8 text-sm rounded-md py-2.5 min-w-52"
+            >
               {user ? "Purchase" : "Get Started"}
             </button>
           </motion.div>

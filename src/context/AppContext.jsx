@@ -51,6 +51,32 @@ const AppContextProvider = (props) => {
     }
   };
 
+  // Payment API Intergation
+  const buyCredits = async (planId) => {
+    try {
+      if (!token) {
+        toast.error("Please login to continue");
+        return;
+      }
+
+      const { data } = await axios.post(
+        backendUrl + "/api/payment/buy-credits",
+        { planId },
+        { headers: { token } },
+      );
+
+      if (data.success) {
+        const { session_url } = data;
+        window.location.replace(session_url);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     if (token) {
       getUserCredits();
@@ -66,6 +92,7 @@ const AppContextProvider = (props) => {
     token,
     setToken,
     generateImage,
+    buyCredits,
   };
 
   return (

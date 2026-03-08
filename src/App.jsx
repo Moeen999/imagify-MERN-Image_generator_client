@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import NotFoundPage from "./components/NotFoundPage";
 import Login from "./components/Login";
 import { useEffect } from "react";
+import VerifyPayment from "./pages/VerifyPayment";
 const App = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/buy" element={<BuyCredit />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/verify-payment" element={<VerifyPayment />} />
         </Routes>
         <Footer />
       </div>
