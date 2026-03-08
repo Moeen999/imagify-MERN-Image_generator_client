@@ -29,10 +29,10 @@ const Login = () => {
         );
         if (data.success) {
           toast.success("Account created succesfully!");
+          await getUserCredits();
           navigate("/");
           setUser(true);
           setToken(localStorage.setItem("token", data.token));
-          await getUserCredits();
         } else {
           toast.error(data.message);
         }
@@ -43,6 +43,7 @@ const Login = () => {
         );
         if (data.success) {
           toast.success("User logged In succesfully");
+          await getUserCredits();
           navigate("/");
           setUser(true);
           setToken(localStorage.setItem("token", data.token));

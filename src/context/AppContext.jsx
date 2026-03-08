@@ -93,6 +93,7 @@ const AppContextProvider = (props) => {
     setToken,
     generateImage,
     buyCredits,
+    getUserCredits,
   };
 
   return (
