@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [isSignup, setIsSignup] = useState(false);
-  const { backendUrl, setToken, setUser } = useContext(AppContext);
+  const { backendUrl, setToken, setUser, getUserCredits } = useContext(AppContext);
   const navigate = useNavigate();
   const [inputVal, setInputVal] = useState({
     name: "",
@@ -32,6 +32,7 @@ const Login = () => {
           navigate("/");
           setUser(true);
           setToken(localStorage.setItem("token", data.token));
+          await getUserCredits();
         } else {
           toast.error(data.message);
         }
