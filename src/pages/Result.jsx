@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
+import { motion } from "motion/react";
 import { assets } from "../assets/assets";
 
 const Result = () => {
@@ -6,13 +9,33 @@ const Result = () => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState("");
+  const { generateImage } = useContext(AppContext);
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+    try {
+      setLoading(true);
+      if (prompt) {
+        const image = await generateImage(prompt);
+        if (image) {
+          setIsImgLoaded(true);
+          setImg(image);
+        }
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   return (
-    <form
+    <motion.form
+      initial={{ opacity: 0.2, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       onSubmit={handleFormSubmit}
       className="flex flex-col min-h-[90vh] justify-center items-center"
     >
@@ -63,7 +86,7 @@ const Result = () => {
           </a>
         </div>
       )}
-    </form>
+    </motion.form>
   );
 };
 

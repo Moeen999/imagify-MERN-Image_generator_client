@@ -32,6 +32,8 @@ const Login = () => {
           navigate("/");
           setUser(true);
           setToken(localStorage.setItem("token", data.token));
+        } else {
+          toast.error(data.message);
         }
       } else {
         const { data } = await axios.post(
@@ -43,10 +45,13 @@ const Login = () => {
           navigate("/");
           setUser(true);
           setToken(localStorage.setItem("token", data.token));
+        } else {
+          toast.error(data.message);
         }
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
   return (

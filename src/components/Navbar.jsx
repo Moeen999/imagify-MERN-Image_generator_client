@@ -2,15 +2,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { Loader2Icon } from "lucide-react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(AppContext);
-  const handleLogout=()=>{
-    localStorage.clear();
+  const { user, setUser, credits } = useContext(AppContext);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
     setUser(null);
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   return (
     <div className="flex justify-between items-center py-4">
@@ -25,11 +26,11 @@ const Navbar = () => {
               onClick={() => navigate("/buy")}
             >
               <img src={assets.credit_star} alt="" className="w-5" />
-              <p className="text-xs sm:text-sm font-medium text-gray-600">
-                Credits left : 50
+              <p className="text-xs sm:text-sm font-medium text-gray-600 flex justify-center items-center gap-2">
+                Credits left : {credits ? credits : <Loader2Icon size={12} />}
               </p>
             </button>
-            <p className="text-gray-600 max-sm:hidden pl-4">Hi, niggDev</p>
+            <p className="text-gray-600 max-sm:hidden pl-4">Hi, {user ? user?.name : ""}</p>
             <div className="relative group">
               <img
                 className="w-10 drop-shadow"
