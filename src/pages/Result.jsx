@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { assets } from "../assets/assets";
 
 const Result = () => {
-  const [img, setImg] = useState(assets.sample_img_1);
+  const [img, setImg] = useState(assets.sample_img_2);
   const [isImgLoaded, setIsImgLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState("");

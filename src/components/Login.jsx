@@ -28,8 +28,8 @@ const Login = () => {
           inputVal,
         );
         if (data.success) {
-          toast.success("Account created succesfully!");
           await getUserCredits();
+          toast.success("Account created succesfully!");
           navigate("/");
           setUser(true);
           setToken(localStorage.setItem("token", data.token));
@@ -42,8 +42,8 @@ const Login = () => {
           inputVal,
         );
         if (data.success) {
-          toast.success("User logged In succesfully");
           await getUserCredits();
+          toast.success("User logged In succesfully");
           navigate("/");
           setUser(true);
           setToken(localStorage.setItem("token", data.token));
